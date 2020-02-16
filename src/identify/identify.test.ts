@@ -1,5 +1,12 @@
 /* eslint-disable no-useless-escape */
-import { isLetter, isSpace, isTab, isWhitespace, isNumber } from './identify'
+import {
+  isLetter,
+  isSpace,
+  isTab,
+  isWhitespace,
+  isNumber,
+  isOpeningParenthesis,
+} from './identify'
 
 const characters = 'aa'
 const character = 'a'
@@ -10,6 +17,8 @@ const whitespace = '\t\n'
 const carriageReturn = '\r'
 const singleQuote = `\'`
 const doubleQuote = `\"`
+const openingParenthesis = '('
+const closingParenthesis = ')'
 describe('isLetter', () => {
   it('accepts only a single character at a time', () => {
     const fn = (): boolean => isLetter(characters)
@@ -88,5 +97,19 @@ describe('isNumber', () => {
 
   it('Should return `false` for not numbers', () => {
     expect(isNumber(character)).toBe(false)
+  })
+})
+
+describe('isOpeningParenthesis', () => {
+  it('accepts only a single character at a time', () => {
+    const fn = (): boolean => isOpeningParenthesis(characters)
+    expect(fn).toThrow()
+  })
+
+  test('happy path', () => {
+    expect(isOpeningParenthesis(openingParenthesis)).toBe(true)
+  })
+  test('Should return `false` for closing parenthesis', () => {
+    expect(isOpeningParenthesis(closingParenthesis)).not.toBe(true)
   })
 })

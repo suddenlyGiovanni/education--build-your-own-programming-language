@@ -3,6 +3,7 @@ const SPACE = / /
 const TAB = /\t/
 const WHITESPACE = /\s+/
 const NUMBER = /^[0-9]+$/
+const OPENING_PARENTHESIS = /\(/
 
 /**
  * a string compose of a single character
@@ -14,17 +15,19 @@ type Character = string
  */
 type Characters = string
 
-function isLetter(character: Character): boolean {
-  if (character.length > 1) {
-    throw new Error('isLetter only accepts a single character at a time')
+function assertSingleCharacter(str: string): asserts str is Character {
+  if (str.length > 1) {
+    throw new Error('only accepts a single character at a time')
   }
+}
+
+function isLetter(character: Character): boolean {
+  assertSingleCharacter(character)
   return LETTER.test(character)
 }
 
 function isSpace(character: Character): boolean {
-  if (character.length > 1) {
-    throw new Error('isSpace only accepts a single character at a time')
-  }
+  assertSingleCharacter(character)
   return SPACE.test(character)
 }
 /**
@@ -35,17 +38,25 @@ function isWhitespace(characters: Characters): boolean {
 }
 
 function isTab(character: Character): boolean {
-  if (character.length > 1) {
-    throw new Error('isTab only accepts a single character at a time')
-  }
+  assertSingleCharacter(character)
   return TAB.test(character)
 }
 
 function isNumber(character: Character): boolean {
-  if (character.length > 1) {
-    throw new Error('isNumber only accepts a single character at a time')
-  }
+  assertSingleCharacter(character)
   return NUMBER.test(character)
 }
 
-export { isLetter, isSpace, isTab, isWhitespace, isNumber }
+function isOpeningParenthesis(character: Character): boolean {
+  assertSingleCharacter(character)
+  return OPENING_PARENTHESIS.test(character)
+}
+
+export {
+  isLetter,
+  isSpace,
+  isTab,
+  isWhitespace,
+  isNumber,
+  isOpeningParenthesis,
+}
