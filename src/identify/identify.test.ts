@@ -1,5 +1,5 @@
 /* eslint-disable no-useless-escape */
-import { isLetter, isWhitespace } from './identify'
+import { isLetter, isWhitespace, isTab } from './identify'
 
 const characters = 'aa'
 const character = 'a'
@@ -52,5 +52,20 @@ describe('isWhitespace', () => {
 
   it('Should return `false` for a tab', () => {
     expect(isWhitespace(tab)).toBe(false)
+  })
+})
+
+describe('isTab', () => {
+  it('accepts only a single character at a time', () => {
+    const fn = (): boolean => isTab(characters)
+    expect(fn).toThrow()
+  })
+
+  it('happy path', () => {
+    expect(isTab(tab)).toBe(true)
+  })
+
+  it('Should return `false` for a whitespace', () => {
+    expect(isTab(whitespace)).toBe(false)
   })
 })

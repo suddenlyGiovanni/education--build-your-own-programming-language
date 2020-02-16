@@ -1,6 +1,6 @@
 const LETTER = /[a-zA-Z]/
 const WHITESPACE = / /
-// const TAB = /\t/
+const TAB = /\t/
 
 function isLetter(character: string): boolean {
   if (character.length > 1) {
@@ -16,4 +16,11 @@ function isWhitespace(character: string): boolean {
   return WHITESPACE.test(character)
 }
 
-export { isLetter, isWhitespace }
+function isTab(character: string): boolean {
+  if (character.length > 1) {
+    throw new Error('isTab only accepts a single character at a time')
+  }
+  return TAB.test(character)
+}
+
+export { isLetter, isWhitespace, isTab }
