@@ -6,6 +6,7 @@ import {
   isWhitespace,
   isNumber,
   isOpeningParenthesis,
+  isClosingParenthesis,
 } from './identify'
 
 const characters = 'aa'
@@ -111,5 +112,19 @@ describe('isOpeningParenthesis', () => {
   })
   test('Should return `false` for closing parenthesis', () => {
     expect(isOpeningParenthesis(closingParenthesis)).not.toBe(true)
+  })
+})
+
+describe('isClosingParenthesis', () => {
+  it('accepts only a single character at a time', () => {
+    const fn = (): boolean => isClosingParenthesis(characters)
+    expect(fn).toThrow()
+  })
+
+  test('happy path', () => {
+    expect(isClosingParenthesis(closingParenthesis)).toBe(true)
+  })
+  test('Should return `false` for closing parenthesis', () => {
+    expect(isClosingParenthesis(openingParenthesis)).not.toBe(true)
   })
 })

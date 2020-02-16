@@ -4,6 +4,7 @@ const TAB = /\t/
 const WHITESPACE = /\s+/
 const NUMBER = /^[0-9]+$/
 const OPENING_PARENTHESIS = /\(/
+const CLOSING_PARENTHESIS = /\)/
 
 /**
  * a string compose of a single character
@@ -51,6 +52,10 @@ function isOpeningParenthesis(character: Character): boolean {
   assertSingleCharacter(character)
   return OPENING_PARENTHESIS.test(character)
 }
+function isClosingParenthesis(character: Character): boolean {
+  assertSingleCharacter(character)
+  return CLOSING_PARENTHESIS.test(character)
+}
 
 export {
   isLetter,
@@ -59,4 +64,5 @@ export {
   isWhitespace,
   isNumber,
   isOpeningParenthesis,
+  isClosingParenthesis,
 }
