@@ -8,6 +8,7 @@ import {
   isOpeningParenthesis,
   isClosingParenthesis,
   isParenthesis,
+  isQuote,
 } from './identify'
 
 const characters = 'aa'
@@ -138,5 +139,20 @@ describe('isParenthesis', () => {
   test('happy path', () => {
     expect(isParenthesis(openingParenthesis)).toBe(true)
     expect(isParenthesis(closingParenthesis)).toBe(true)
+  })
+})
+
+describe('isQuote', () => {
+  it('accepts only a single character at a time', () => {
+    const fn = (): boolean => isQuote(characters)
+    expect(fn).toThrow()
+  })
+
+  test('happy path', () => {
+    expect(isQuote(doubleQuote)).toBe(true)
+  })
+
+  test('Should return `false` for single quote', () => {
+    expect(isQuote(singleQuote)).not.toBe(true)
   })
 })

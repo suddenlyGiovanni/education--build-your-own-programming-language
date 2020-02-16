@@ -5,6 +5,7 @@ const WHITESPACE = /\s+/
 const NUMBER = /^[0-9]+$/
 const OPENING_PARENTHESIS = /\(/
 const CLOSING_PARENTHESIS = /\)/
+const DOUBLE_QUOTE = /"/
 
 /**
  * a string compose of a single character
@@ -62,6 +63,11 @@ function isParenthesis(character: Character): boolean {
   return isOpeningParenthesis(character) || isClosingParenthesis(character)
 }
 
+function isQuote(character: Character): boolean {
+  assertSingleCharacter(character)
+  return DOUBLE_QUOTE.test(character)
+}
+
 export {
   isLetter,
   isSpace,
@@ -71,4 +77,5 @@ export {
   isOpeningParenthesis,
   isClosingParenthesis,
   isParenthesis,
+  isQuote,
 }
