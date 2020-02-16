@@ -1,26 +1,51 @@
 const LETTER = /[a-zA-Z]/
-const WHITESPACE = / /
+const SPACE = / /
 const TAB = /\t/
+const WHITESPACE = /\s+/
+const NUMBER = /^[0-9]+$/
 
-function isLetter(character: string): boolean {
+/**
+ * a string compose of a single character
+ */
+type Character = string
+
+/**
+ * a string compose of a multiple character
+ */
+type Characters = string
+
+function isLetter(character: Character): boolean {
   if (character.length > 1) {
     throw new Error('isLetter only accepts a single character at a time')
   }
   return LETTER.test(character)
 }
 
-function isWhitespace(character: string): boolean {
+function isSpace(character: Character): boolean {
   if (character.length > 1) {
-    throw new Error('isWhitespace only accepts a single character at a time')
+    throw new Error('isSpace only accepts a single character at a time')
   }
-  return WHITESPACE.test(character)
+  return SPACE.test(character)
+}
+/**
+ *  Matches any whitespace character (spaces, tabs, line breaks)
+ */
+function isWhitespace(characters: Characters): boolean {
+  return WHITESPACE.test(characters)
 }
 
-function isTab(character: string): boolean {
+function isTab(character: Character): boolean {
   if (character.length > 1) {
     throw new Error('isTab only accepts a single character at a time')
   }
   return TAB.test(character)
 }
 
-export { isLetter, isWhitespace, isTab }
+function isNumber(character: Character): boolean {
+  if (character.length > 1) {
+    throw new Error('isNumber only accepts a single character at a time')
+  }
+  return NUMBER.test(character)
+}
+
+export { isLetter, isSpace, isTab, isWhitespace, isNumber }
