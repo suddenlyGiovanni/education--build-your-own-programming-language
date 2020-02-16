@@ -57,6 +57,11 @@ function isClosingParenthesis(character: Character): boolean {
   return CLOSING_PARENTHESIS.test(character)
 }
 
+function isParenthesis(character: Character): boolean {
+  assertSingleCharacter(character)
+  return isOpeningParenthesis(character) || isClosingParenthesis(character)
+}
+
 export {
   isLetter,
   isSpace,
@@ -65,4 +70,5 @@ export {
   isNumber,
   isOpeningParenthesis,
   isClosingParenthesis,
+  isParenthesis,
 }
