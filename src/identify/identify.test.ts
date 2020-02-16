@@ -1,16 +1,15 @@
 /* eslint-disable no-useless-escape */
-import { isLetter } from './identify'
+import { isLetter, isWhitespace } from './identify'
 
+const characters = 'aa'
+const character = 'a'
+const number = '1'
+const whitespace = ' '
+const tab = '\t'
+const carriageReturn = '\r'
+const singleQuote = `\'`
+const doubleQuote = `\"`
 describe('isLetter', () => {
-  const characters = 'aa'
-  const character = 'a'
-  const number = '1'
-  const space = ' '
-  const tab = '\t'
-  const carriageReturn = '\r'
-  const singleQuote = `\'`
-  const doubleQuote = `\"`
-
   it('accepts only a single character at a time', () => {
     const fn = (): boolean => isLetter(characters)
     expect(fn).toThrow()
@@ -24,7 +23,7 @@ describe('isLetter', () => {
   })
 
   it('Should return `false` for a space', () => {
-    expect(isLetter(space)).toBe(false)
+    expect(isLetter(whitespace)).toBe(false)
   })
 
   it('Should return `false` for a tab', () => {
@@ -38,5 +37,20 @@ describe('isLetter', () => {
   })
   it('Should return `false` for a double quote', () => {
     expect(isLetter(doubleQuote)).toBe(false)
+  })
+})
+
+describe('isWhitespace', () => {
+  it('accepts only a single character at a time', () => {
+    const fn = (): boolean => isWhitespace(characters)
+    expect(fn).toThrow()
+  })
+
+  it('happy path', () => {
+    expect(isWhitespace(whitespace)).toBe(true)
+  })
+
+  it('Should return `false` for a tab', () => {
+    expect(isWhitespace(tab)).toBe(false)
   })
 })
