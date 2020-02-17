@@ -57,7 +57,7 @@ describe(tokenize, () => {
     expect(tokenize(input)).toEqual(result)
   })
 
-  it.skip('should be able to handle multiple-digit numbers', () => {
+  it('should be able to handle multiple-digit numbers', () => {
     const input = '(11 22)'
 
     const result = [

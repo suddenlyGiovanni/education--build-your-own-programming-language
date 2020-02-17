@@ -27,10 +27,13 @@ function tokenize(input: string): Token[] {
       continue
     }
 
-    /** should tokenize a single digit */
+    /** should tokenize digits */
     if (isNumber(character)) {
-      tokens.push(new Token('Number', Number(character)))
-      cursor++
+      let number = character
+      while (isNumber(input[++cursor])) {
+        number += input[cursor]
+      }
+      tokens.push(new Token('Number', Number.parseInt(number, 10)))
       continue
     }
 
@@ -40,6 +43,9 @@ function tokenize(input: string): Token[] {
       cursor++
       continue
     }
+
+    /** if case is not handled */
+    throw new Error(`==> ${character} <== is not valid`)
   }
   return tokens //?
 }

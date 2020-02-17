@@ -6,6 +6,5 @@ export class Token {
   constructor(type: Type, value: Value) {
     this.type = type
     this.value = value
-    return this
   }
 }
