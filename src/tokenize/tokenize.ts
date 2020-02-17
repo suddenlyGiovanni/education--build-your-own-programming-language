@@ -1,19 +1,13 @@
 import {
   // isLetter,
   // isWhitespace,
-  // isNumber,
+  isNumber,
   isParenthesis,
   isWhitespace,
   // isQuote,
 } from '../identify/identify'
+import { Token } from './token'
 
-type Type = 'Parenthesis' | 'Number' | 'Name'
-
-type Value = string | number
-export type Token = {
-  type: Type
-  value: Value
-}
 function tokenize(input: string): Token[] {
   const tokens: Token[] = []
   let cursor = 0
@@ -22,16 +16,21 @@ function tokenize(input: string): Token[] {
 
     /** should tokenize parentheses */
     if (isParenthesis(character)) {
-      tokens.push({
-        type: 'Parenthesis',
-        value: character,
-      })
+      tokens.push(new Token('Parenthesis', character))
       cursor++
       continue
     }
 
     /** should ignore whitespace completely*/
     if (isWhitespace(character)) {
+      cursor++
+      continue
+    }
+
+    /** should tokenize a single digit */
+
+    if (isNumber(character)) {
+      tokens.push(new Token('Number', Number(character)))
       cursor++
       continue
     }

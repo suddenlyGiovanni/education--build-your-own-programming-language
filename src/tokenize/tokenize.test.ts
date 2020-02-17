@@ -1,4 +1,5 @@
-import { tokenize, Token } from './tokenize'
+import { tokenize } from './tokenize'
+import { Token } from './token'
 
 describe(tokenize, () => {
   it('should return an array', () => {
@@ -23,14 +24,14 @@ describe(tokenize, () => {
   })
 
   // Exercise 1 - Begin
-  it.skip('should correctly tokenize a single digit', () => {
+  it('should correctly tokenize a single digit', () => {
     const input = '2'
     const result = [{ type: 'Number', value: 2 }]
 
     expect(tokenize(input)).toEqual(result)
   })
 
-  it.skip('should be able to handle single numbers in expressions', () => {
+  it('should be able to handle single numbers in expressions', () => {
     const input = '(1 2)'
 
     const result = [
