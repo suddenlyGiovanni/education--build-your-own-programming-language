@@ -9,6 +9,7 @@ import {
   isClosingParenthesis,
   isParenthesis,
   isQuote,
+  isOperator,
 } from './identify'
 
 const characters = 'aa'
@@ -22,6 +23,14 @@ const singleQuote = `\'`
 const doubleQuote = `\"`
 const openingParenthesis = '('
 const closingParenthesis = ')'
+const additionOperator = '+'
+const subtractionOperator = '-'
+const divisionOperator = '/'
+const multiplicationOperator = '*'
+const remainderOperator = '%'
+// const exponentiationOperator = '**'
+// const incrementOperator = '++'
+// const decrementOperator = '--'
 describe('isLetter', () => {
   it('accepts only a single character at a time', () => {
     const fn = (): boolean => isLetter(characters)
@@ -154,5 +163,40 @@ describe('isQuote', () => {
 
   test('Should return `false` for single quote', () => {
     expect(isQuote(singleQuote)).not.toBe(true)
+  })
+})
+
+describe('isOperator', () => {
+  it('accepts only a single character at a time', () => {
+    const fn = (): boolean => isOperator(characters)
+    expect(fn).toThrow()
+  })
+
+  describe('happy path', () => {
+    test('addition operator', () => {
+      expect(isOperator(additionOperator)).toBe(true)
+    })
+    test('subtraction operator', () => {
+      expect(isOperator(subtractionOperator)).toBe(true)
+    })
+    test('division operator', () => {
+      expect(isOperator(divisionOperator)).toBe(true)
+    })
+    test('multiplication operator', () => {
+      expect(isOperator(multiplicationOperator)).toBe(true)
+    })
+    test('remainder operator', () => {
+      expect(isOperator(remainderOperator)).toBe(true)
+    })
+
+    test.todo('exponentiation operator')
+
+    test.todo('increment operator')
+
+    test.todo('decrement operator')
+
+    test.todo('unary negation operator')
+
+    test.todo('unary plus operator')
   })
 })

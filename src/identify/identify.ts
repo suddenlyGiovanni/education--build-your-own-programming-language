@@ -6,6 +6,7 @@ const NUMBER = /^[0-9]+$/
 const OPENING_PARENTHESIS = /\(/
 const CLOSING_PARENTHESIS = /\)/
 const DOUBLE_QUOTE = /"/
+const OPERATORS = /(\+)|(-)|(\*)|(\/)|(%)/
 
 /**
  * a string compose of a single character
@@ -68,6 +69,11 @@ function isQuote(character: Character): boolean {
   return DOUBLE_QUOTE.test(character)
 }
 
+function isOperator(character: Character): boolean {
+  assertSingleCharacter(character)
+  return OPERATORS.test(character)
+}
+
 export {
   isLetter,
   isSpace,
@@ -78,4 +84,5 @@ export {
   isClosingParenthesis,
   isParenthesis,
   isQuote,
+  isOperator,
 }
