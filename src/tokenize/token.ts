@@ -1,4 +1,4 @@
-type Type = 'Parenthesis' | 'Number' | 'Name'
+type Type = 'Parenthesis' | 'Number' | 'Name' | 'String'
 type Value = string | number
 export class Token {
   public type: Type

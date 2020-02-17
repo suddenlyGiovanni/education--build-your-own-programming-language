@@ -1,10 +1,11 @@
+/** lexer */
+
 import {
-  // isWhitespace,
   isNumber,
   isParenthesis,
   isWhitespace,
   isLetter,
-  // isQuote,
+  isQuote,
 } from '../identify/identify'
 import { Token } from './token'
 
@@ -39,13 +40,25 @@ function tokenize(input: string): Token[] {
 
     /** should tokenize letters */
     if (isLetter(character)) {
-      let characters = character
+      let symbol = character
 
       while (input[++cursor] && isLetter(input[cursor])) {
-        characters += input[cursor]
+        symbol += input[cursor]
       }
 
-      tokens.push(new Token('Name', characters))
+      tokens.push(new Token('Name', symbol))
+      continue
+    }
+
+    /** should tokenize strings */
+    if (isQuote(character)) {
+      let string = ''
+
+      while (input[++cursor] && !isQuote(input[cursor])) {
+        string += input[cursor]
+      }
+      tokens.push(new Token('String', string))
+      cursor++
       continue
     }
 

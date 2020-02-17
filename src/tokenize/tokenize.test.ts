@@ -84,7 +84,7 @@ describe(tokenize, () => {
     expect(tokenize(input)).toEqual(result)
   })
 
-  it.skip('should ignore whitespace', () => {
+  it('should ignore whitespace', () => {
     const input = '   (add    2 3)'
     const result = [
       { type: 'Parenthesis', value: '(' },
@@ -98,7 +98,7 @@ describe(tokenize, () => {
   })
   // Exercise 2 End
 
-  it.skip('should know about strings', () => {
+  it('should know about strings', () => {
     const input = '(log "hello" "world")'
     const result = [
       { type: 'Parenthesis', value: '(' },
