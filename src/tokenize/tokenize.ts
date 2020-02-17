@@ -30,17 +30,22 @@ function tokenize(input: string): Token[] {
     /** should tokenize digits */
     if (isNumber(character)) {
       let number = character
-      while (isNumber(input[++cursor])) {
+      while (input[++cursor] && isNumber(input[cursor])) {
         number += input[cursor]
       }
       tokens.push(new Token('Number', Number.parseInt(number, 10)))
       continue
     }
 
-    /** should tokenize single letters in expressions */
+    /** should tokenize letters */
     if (isLetter(character)) {
-      tokens.push(new Token('Name', character))
-      cursor++
+      let characters = character
+
+      while (input[++cursor] && isLetter(input[cursor])) {
+        characters += input[cursor]
+      }
+
+      tokens.push(new Token('Name', characters))
       continue
     }
 

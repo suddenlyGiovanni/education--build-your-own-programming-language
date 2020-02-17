@@ -71,7 +71,7 @@ describe(tokenize, () => {
   })
 
   // Exercise 2 Begin
-  it.skip('should correctly tokenize a simple expression', () => {
+  it('should correctly tokenize a simple expression', () => {
     const input = '(add 2 3)'
     const result = [
       { type: 'Parenthesis', value: '(' },
