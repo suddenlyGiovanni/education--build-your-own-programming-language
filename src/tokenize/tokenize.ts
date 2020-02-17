@@ -1,9 +1,9 @@
 import {
-  // isLetter,
   // isWhitespace,
   isNumber,
   isParenthesis,
   isWhitespace,
+  isLetter,
   // isQuote,
 } from '../identify/identify'
 import { Token } from './token'
@@ -28,9 +28,15 @@ function tokenize(input: string): Token[] {
     }
 
     /** should tokenize a single digit */
-
     if (isNumber(character)) {
       tokens.push(new Token('Number', Number(character)))
+      cursor++
+      continue
+    }
+
+    /** should tokenize single letters in expressions */
+    if (isLetter(character)) {
+      tokens.push(new Token('Name', character))
       cursor++
       continue
     }
