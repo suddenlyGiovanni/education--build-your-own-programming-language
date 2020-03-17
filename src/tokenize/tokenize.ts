@@ -7,17 +7,18 @@ import {
   isLetter,
   isQuote,
 } from '../identify/identify'
-import { Token } from './token'
+import { Token, Type, buildToken } from './token'
 
 function tokenize(input: string): Token[] {
   const tokens: Token[] = []
   let cursor = 0
+
   while (cursor < input.length) {
-    const character = input[cursor] //?
+    const character = input[cursor]
 
     /** should tokenize parentheses */
     if (isParenthesis(character)) {
-      tokens.push(new Token('Parenthesis', character))
+      tokens.push(buildToken(Type.parenthesis, character))
       cursor++
       continue
     }
@@ -34,7 +35,7 @@ function tokenize(input: string): Token[] {
       while (input[++cursor] && isNumber(input[cursor])) {
         number += input[cursor]
       }
-      tokens.push(new Token('Number', Number.parseInt(number, 10)))
+      tokens.push(buildToken(Type.number, Number.parseInt(number, 10)))
       continue
     }
 
@@ -46,7 +47,7 @@ function tokenize(input: string): Token[] {
         symbol += input[cursor]
       }
 
-      tokens.push(new Token('Name', symbol))
+      tokens.push(buildToken(Type.name, symbol))
       continue
     }
 
@@ -57,7 +58,8 @@ function tokenize(input: string): Token[] {
       while (input[++cursor] && !isQuote(input[cursor])) {
         string += input[cursor]
       }
-      tokens.push(new Token('String', string))
+      tokens.push(buildToken(Type.string, string))
+
       cursor++
       continue
     }

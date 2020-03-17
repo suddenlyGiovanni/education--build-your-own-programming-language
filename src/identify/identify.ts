@@ -7,6 +7,7 @@ const OPENING_PARENTHESIS = /\(/
 const CLOSING_PARENTHESIS = /\)/
 const DOUBLE_QUOTE = /"/
 const OPERATORS = /(\+)|(-)|(\*)|(\/)|(%)/
+const LINE_TERMINATOR = /(\r|\n)/
 
 /**
  * a string compose of a single character
@@ -45,17 +46,21 @@ function isTab(character: Character): boolean {
   return TAB.test(character)
 }
 
+function isLineTerminator(character: Character): boolean {
+  return LINE_TERMINATOR.test(character)
+}
+
 function isNumber(character: Character): boolean {
   assertSingleCharacter(character)
   return NUMBER.test(character)
 }
 
 function isOpeningParenthesis(character: Character): boolean {
-  assertSingleCharacter(character)
+  // assertSingleCharacter(character)
   return OPENING_PARENTHESIS.test(character)
 }
 function isClosingParenthesis(character: Character): boolean {
-  assertSingleCharacter(character)
+  // assertSingleCharacter(character)
   return CLOSING_PARENTHESIS.test(character)
 }
 
@@ -79,6 +84,7 @@ export {
   isSpace,
   isTab,
   isWhitespace,
+  isLineTerminator,
   isNumber,
   isOpeningParenthesis,
   isClosingParenthesis,
