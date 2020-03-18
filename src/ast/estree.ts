@@ -5,7 +5,7 @@
  */
 export interface Node {
   type: string
-  loc: SourceLocation | null
+  loc?: SourceLocation | null
 }
 
 /**

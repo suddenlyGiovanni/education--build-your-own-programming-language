@@ -38,6 +38,10 @@ export class Identifier implements ESTree.Identifier {
     this.name = value
     this.loc = null
   }
+
+  public static isIdentifier(node: ESTree.Node): node is Identifier {
+    return node.type === 'Identifier'
+  }
 }
 
 export class NumericLiteral implements ESTree.Literal {
@@ -49,6 +53,10 @@ export class NumericLiteral implements ESTree.Literal {
     this.value = value
     this.loc = null
   }
+
+  public static isNumericLiteral(node: ESTree.Node): node is NumericLiteral {
+    return node.type === 'NumericLiteral'
+  }
 }
 
 export class StringLiteral implements ESTree.Literal {
@@ -59,6 +67,10 @@ export class StringLiteral implements ESTree.Literal {
     this.type = 'StringLiteral'
     this.value = value
     this.loc = null
+  }
+
+  public static isStringLiteral(node: ESTree.Node): node is StringLiteral {
+    return node.type === 'StringLiteral'
   }
 }
 
@@ -75,7 +87,12 @@ export class CallExpression implements ESTree.CallExpression {
     this.arguments = args
     this.callee = null
   }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  public static isCallExpression(node: any): node is CallExpression {
+    return node.type === 'CallExpression'
+  }
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type AST = any
+export type AST = ESTree.Node | NumericLiteral | StringLiteral
