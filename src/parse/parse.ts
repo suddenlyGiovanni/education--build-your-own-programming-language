@@ -14,7 +14,6 @@ import {
   StringLiteral,
   Identifier,
   CallExpression,
-  AST,
 } from '../ast/ast'
 
 // TODO: this is a bad interface, please address it ASAP
@@ -38,10 +37,11 @@ function parenthesize(tokens: Token[]): ArrayToken {
   }
 }
 
-function parse(tokens: ArrayToken): AST {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function parse(tokens: ArrayToken): any {
   if (Array.isArray(tokens)) {
     const [first, ...rest] = tokens
-    const name = String(first.value)
+    const name = String(!Array.isArray(first) && first.value)
     return new CallExpression(name, rest.map(parse))
   }
   const token = tokens //?
@@ -56,8 +56,6 @@ function parse(tokens: ArrayToken): AST {
   if (isNameToken(token)) {
     return new Identifier(token.value)
   }
-
-  return undefined
 }
 
 export default {

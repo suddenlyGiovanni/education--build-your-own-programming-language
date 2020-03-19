@@ -9,7 +9,7 @@ import {
   Identifier,
 } from '../ast/ast'
 
-const last = <T>(collection: T[]): T => collection[collection.length - 1]
+// const last = <T>(collection: T[]): T => collection[collection.length - 1]
 
 type StandardLibraryFunctionNames = keyof typeof environment
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type

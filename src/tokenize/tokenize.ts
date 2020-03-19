@@ -9,7 +9,7 @@ import {
 } from '../identify/identify'
 import { Token, Type, buildToken } from './token'
 
-function tokenize(input: string): Token[] {
+export function tokenize(input: string): Token[] {
   const tokens: Token[] = []
   let cursor = 0
 
@@ -69,5 +69,3 @@ function tokenize(input: string): Token[] {
   }
   return tokens //?
 }
-
-export { tokenize }
