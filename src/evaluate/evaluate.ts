@@ -2,11 +2,11 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import { environment } from '../standard-library/standard-library'
 import {
-  AST,
   NumericLiteral,
   StringLiteral,
   CallExpression,
   Identifier,
+  ASTNode,
 } from '../ast/ast'
 
 // const last = <T>(collection: T[]): T => collection[collection.length - 1]
@@ -34,7 +34,7 @@ function getIdentifier(node: Identifier) {
 
   throw new ReferenceError(`${node.name} is not defined`)
 }
-function evaluate(node: AST) {
+export function evaluate(node: ASTNode) {
   if (CallExpression.isCallExpression(node)) {
     return apply(node)
   }
@@ -49,5 +49,3 @@ function evaluate(node: AST) {
     return node.value
   }
 }
-
-export { evaluate }

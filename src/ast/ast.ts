@@ -1,5 +1,6 @@
-import * as ESTree from './estree'
-export class Position implements ESTree.Position {
+import * as AST from 'types'
+
+export class Position implements AST.Position {
   public line: number
   public column: number
 
@@ -29,59 +30,59 @@ export class Position implements ESTree.Position {
   }
 }
 
-export class Identifier implements ESTree.Identifier {
-  public type: 'Identifier'
+export class Identifier implements AST.Identifier {
+  public type: AST.SyntaxKind.Identifier
   public name: string
-  public loc: ESTree.SourceLocation | null
+  public loc: AST.SourceLocation | null
   constructor(value: string) {
-    this.type = 'Identifier'
+    this.type = AST.SyntaxKind.Identifier
     this.name = value
     this.loc = null
   }
 
-  public static isIdentifier(node: ESTree.Node): node is Identifier {
-    return node.type === 'Identifier'
+  public static isIdentifier(node: ASTNode): node is Identifier {
+    return node.type === AST.SyntaxKind.Identifier
   }
 }
 
-export class NumericLiteral implements ESTree.Literal {
-  public readonly type: 'NumericLiteral'
-  public readonly value: number
-  public readonly loc: ESTree.SourceLocation | null
+export class NumericLiteral implements AST.Literal {
+  public type: AST.SyntaxKind.NumericLiteral
+  public value: number
+  public loc: AST.SourceLocation | null
   constructor(value: number) {
-    this.type = 'NumericLiteral'
+    this.type = AST.SyntaxKind.NumericLiteral
     this.value = value
     this.loc = null
   }
 
-  public static isNumericLiteral(node: ESTree.Node): node is NumericLiteral {
-    return node.type === 'NumericLiteral'
+  public static isNumericLiteral(node: ASTNode): node is NumericLiteral {
+    return node.type === AST.SyntaxKind.NumericLiteral
   }
 }
 
-export class StringLiteral implements ESTree.Literal {
-  public readonly type: 'StringLiteral'
-  public readonly value: string
-  public readonly loc: ESTree.SourceLocation | null
+export class StringLiteral implements AST.Literal {
+  public type: AST.SyntaxKind.StringLiteral
+  public value: string
+  public loc: AST.SourceLocation | null
   constructor(value: string) {
-    this.type = 'StringLiteral'
+    this.type = AST.SyntaxKind.StringLiteral
     this.value = value
     this.loc = null
   }
 
-  public static isStringLiteral(node: ESTree.Node): node is StringLiteral {
-    return node.type === 'StringLiteral'
+  public static isStringLiteral(node: ASTNode): node is StringLiteral {
+    return node.type === AST.SyntaxKind.StringLiteral
   }
 }
 
-export class CallExpression implements ESTree.CallExpression {
+export class CallExpression implements AST.CallExpression {
   public name: string
-  public type: 'CallExpression'
-  public loc: ESTree.SourceLocation | null
-  public arguments: ESTree.Expression[]
-  public callee: ESTree.Expression | null
-  constructor(name: string, args: ESTree.Expression[]) {
-    this.type = 'CallExpression'
+  public type: AST.SyntaxKind.CallExpression
+  public loc?: AST.SourceLocation | null
+  public arguments: AST.Expression[]
+  public callee?: AST.Expression | null
+  constructor(name: string, args: AST.Expression[]) {
+    this.type = AST.SyntaxKind.CallExpression
     this.name = name
     this.loc = null
     this.arguments = args
@@ -89,10 +90,23 @@ export class CallExpression implements ESTree.CallExpression {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public static isCallExpression(node: any): node is CallExpression {
-    return node.type === 'CallExpression'
+  public static isCallExpression(node: ASTNode): node is CallExpression {
+    return node.type === AST.SyntaxKind.CallExpression
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type AST = ESTree.Node | NumericLiteral | StringLiteral
+export type ASTNode =
+  | AST.Statement
+  | AST.Expression
+  | AST.Pattern
+  | Identifier
+  | AST.Literal
+  | AST.Directive
+  | AST.Program
+  | AST.ExpressionStatement
+  | AST.BlockStatement
+  | AST.FunctionBody
+  | AST.Function
+  | CallExpression
+  | NumericLiteral
+  | StringLiteral

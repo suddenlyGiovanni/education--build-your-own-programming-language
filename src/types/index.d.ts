@@ -1,11 +1,106 @@
-/* eslint-disable @typescript-eslint/no-empty-interface */
+export const enum SyntaxKind {
+  Identifier = 'Identifier',
+  Literal = 'Literal',
+  NumericLiteral = 'NumericLiteral',
+  StringLiteral = 'StringLiteral',
+  ExpressionStatement = 'ExpressionStatement',
+  Program = 'Program',
+  BlockStatement = 'BlockStatement',
+  CallExpression = 'CallExpression',
+}
+
+export const enum SyntaxToken {
+  OpenBraceToken,
+  CloseBrace,
+  OpenParen,
+  CloseParen,
+  OpenBracket,
+  CloseBracket,
+  Dot,
+  DotDotDot,
+  Semicolon,
+  Comma,
+  QuestionDot,
+  LessThan,
+  LessThanSlash,
+  GreaterThan,
+  LessThanEquals,
+  GreaterThanEquals,
+  EqualsEquals,
+  ExclamationEquals,
+  EqualsEqualsEquals,
+  ExclamationEqualsEquals,
+  EqualsGreaterThan,
+  Plus,
+  Minus,
+  Asterisk,
+  AsteriskAsterisk,
+  Slash,
+  Percent,
+  PlusPlus,
+  MinusMinus,
+  LessThanLessThan,
+  GreaterThanGreaterThan,
+  GreaterThanGreaterThanGreaterThan,
+  Ampersand,
+  Bar,
+  Caret,
+  Exclamation,
+  Tilde,
+  AmpersandAmpersand,
+  BarBar,
+  Question,
+  Colon,
+  At,
+  Backtick,
+  // Assignments
+  Equals,
+  PlusEquals,
+  MinusEquals,
+  AsteriskEquals,
+  AsteriskAsteriskEquals,
+  SlashEquals,
+  PercentEquals,
+  LessThanLessThanEquals,
+  GreaterThanGreaterThanEquals,
+  GreaterThanGreaterThanGreaterThanEquals,
+  AmpersandEquals,
+  BarEquals,
+  CaretEquals,
+}
+
+/**
+ * object consisting of
+ * - a `start` position (the position of the first character of the parsed source region) and
+ * - an `end` position (the position of the first character after the parsed source region)
+ */
+export interface SourceLocation {
+  source: string | null
+  start: Position
+  end: Position
+}
+
+/**
+ * Each Position object consists of
+ * - a `line` number (1-indexed) and
+ * - a `column` number (0-indexed)
+ */
+export interface Position {
+  line: number // >= 1
+  column: number // >= 0
+}
+
 /**
  * ESTree AST nodes are represented as Node objects,
  * which may have any prototype inheritance but which implement the following interface:
  */
+
 export interface Node {
-  type: string
-  loc?: SourceLocation | null
+  type: SyntaxKind
+  // Parent node
+  parent?: Node
+
+  loc?: null | SourceLocation
 }
 
 /**
@@ -45,7 +140,7 @@ export type Pattern = Node
  * An identifier. Note that an identifier may be an expression or a destructuring pattern.
  */
 export interface Identifier extends Expression, Pattern {
-  type: 'Identifier'
+  type: SyntaxKind.Identifier
   name: string
 }
 
@@ -53,7 +148,10 @@ export interface Identifier extends Expression, Pattern {
  * A literal token. Note that a literal can be an expression.
  */
 export interface Literal extends Expression {
-  type: 'Literal' | 'NumericLiteral' | 'StringLiteral'
+  type:
+    | SyntaxKind.Literal
+    | SyntaxKind.NumericLiteral
+    | SyntaxKind.StringLiteral
   value: string | boolean | null | number | RegExp
 }
 
@@ -62,7 +160,7 @@ export interface Literal extends Expression {
  * The directive property is the raw string source of the directive without quotes.
  */
 export interface Directive extends Node {
-  type: 'ExpressionStatement'
+  type: SyntaxKind.ExpressionStatement
   expression: Literal
   directive: string
 }
@@ -72,7 +170,7 @@ export interface Directive extends Node {
  */
 
 export interface Program extends Node {
-  type: 'Program'
+  type: SyntaxKind.Program
   body: (Directive | Statement)[]
 }
 
@@ -80,7 +178,7 @@ export interface Program extends Node {
  * An expression statement, i.e., a statement consisting of a single expression.
  */
 export interface ExpressionStatement extends Statement {
-  type: 'ExpressionStatement'
+  type: SyntaxKind.ExpressionStatement
   expression: Expression
 }
 
@@ -88,7 +186,7 @@ export interface ExpressionStatement extends Statement {
  * A block statement, i.e., a sequence of statements surrounded by braces.
  */
 export interface BlockStatement extends Statement {
-  type: 'BlockStatement'
+  type: SyntaxKind.BlockStatement
   body: Statement[]
 }
 
@@ -113,7 +211,7 @@ export interface Function extends Node {
  */
 export interface CallExpression extends Expression {
   // TODO: Remove null from callee def.
-  callee: Expression | null
-  type: 'CallExpression'
+  callee?: Expression | null
+  type: SyntaxKind.CallExpression
   arguments: Expression[]
 }

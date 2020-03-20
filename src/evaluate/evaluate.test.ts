@@ -1,16 +1,21 @@
 import { evaluate } from './evaluate'
-import { NumericLiteral, StringLiteral } from '../ast/ast'
+import { NumericLiteral, StringLiteral, CallExpression } from '../ast/ast'
+import { SyntaxKind } from 'types'
 
 describe(evaluate, () => {
   it('should fall back to returning a primitive numeric value', () => {
-    const ast: NumericLiteral = { type: 'NumericLiteral', value: 2, loc: null }
+    const ast: NumericLiteral = {
+      type: SyntaxKind.NumericLiteral,
+      value: 2,
+      loc: null,
+    }
 
     expect(evaluate(ast)).toBe(2)
   })
 
   it('should fall back to returning a primitive string value', () => {
     const ast: StringLiteral = {
-      type: 'StringLiteral',
+      type: SyntaxKind.StringLiteral,
       value: 'Hello',
       loc: null,
     }
@@ -19,12 +24,12 @@ describe(evaluate, () => {
   })
 
   it('should be able to evaluate a single expression', () => {
-    const ast = {
-      type: 'CallExpression',
+    const ast: CallExpression = {
+      type: SyntaxKind.CallExpression,
       name: 'add',
       arguments: [
-        { type: 'NumericLiteral', value: 2 },
-        { type: 'NumericLiteral', value: 3 },
+        { type: SyntaxKind.NumericLiteral, value: 2 } as NumericLiteral,
+        { type: SyntaxKind.NumericLiteral, value: 3 } as NumericLiteral,
       ],
     }
 
@@ -35,17 +40,17 @@ describe(evaluate, () => {
 
   it('should be able to evaluate a nested expression', () => {
     const ast = {
-      type: 'CallExpression',
+      type: SyntaxKind.CallExpression,
       name: 'add',
       arguments: [
-        { type: 'NumericLiteral', value: 2 },
-        { type: 'NumericLiteral', value: 3 },
+        { type: SyntaxKind.NumericLiteral, value: 2 },
+        { type: SyntaxKind.NumericLiteral, value: 3 },
         {
-          type: 'CallExpression',
+          type: SyntaxKind.CallExpression,
           name: 'subtract',
           arguments: [
-            { type: 'NumericLiteral', value: 5 },
-            { type: 'NumericLiteral', value: 4 },
+            { type: SyntaxKind.NumericLiteral, value: 5 },
+            { type: SyntaxKind.NumericLiteral, value: 4 },
           ],
         },
       ],

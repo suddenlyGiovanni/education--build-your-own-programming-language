@@ -122,10 +122,10 @@ describe('isNumber', () => {
 })
 
 describe('isOpeningParenthesis', () => {
-  it.skip('accepts only a single character at a time', () => {
-    const fn = (): boolean => isOpeningParenthesis(characters)
-    expect(fn).toThrow()
-  })
+  // it.skip('accepts only a single character at a time', () => {
+  //   const fn = (): boolean => isOpeningParenthesis(characters)
+  //   expect(fn).toThrow()
+  // })
 
   test('happy path', () => {
     expect(isOpeningParenthesis(openingParenthesis)).toBe(true)
@@ -136,10 +136,10 @@ describe('isOpeningParenthesis', () => {
 })
 
 describe('isClosingParenthesis', () => {
-  it.skip('accepts only a single character at a time', () => {
-    const fn = (): boolean => isClosingParenthesis(characters)
-    expect(fn).toThrow()
-  })
+  // it.skip('accepts only a single character at a time', () => {
+  //   const fn = (): boolean => isClosingParenthesis(characters)
+  //   expect(fn).toThrow()
+  // })
 
   test('happy path', () => {
     expect(isClosingParenthesis(closingParenthesis)).toBe(true)
