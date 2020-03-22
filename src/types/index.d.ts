@@ -208,3 +208,17 @@ export interface CallExpression extends Expression {
   type: SyntaxKind.CallExpression
   arguments: Expression[]
 }
+
+/** A variable declaration. */
+export interface VariableDeclaration extends Declaration {
+  type: SyntaxKind.VariableDeclaration
+  declarations: VariableDeclarator[]
+  kind: 'var' | 'let' | 'const'
+}
+
+/** A variable declarator. */
+export interface VariableDeclarator extends Node {
+  type: SyntaxKind.VariableDeclarator
+  id: Pattern
+  init: Expression | null
+}

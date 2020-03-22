@@ -2,8 +2,16 @@ import generate from '@babel/generator'
 import { Node } from '@babel/types'
 
 import { traverse, Visitor } from 'traverse/traverse'
-import { ASTNode, CallExpression, Identifier } from 'ast/ast'
-import { SyntaxKind } from 'types'
+import {
+  ASTNode,
+  CallExpression,
+  Identifier,
+  VariableDeclaration,
+} from 'ast/ast'
+import {
+  SyntaxKind,
+  VariableDeclaration as BabelVariableDeclaration,
+} from 'types'
 
 const babelVisitor: Visitor = {
   CallExpression: {
@@ -15,6 +23,31 @@ const babelVisitor: Visitor = {
           loc: null,
         }
         node.callee = identifier
+      }
+    },
+  },
+
+  VariableDeclaration: {
+    enter({ node }): void {
+      if (VariableDeclaration.isVariableDeclaration(node)) {
+        const { assignment, identifier } = node
+
+        const babelVariableDeclaration: BabelVariableDeclaration = {
+          kind: 'let',
+          type: SyntaxKind.VariableDeclaration,
+          declarations: [
+            {
+              type: SyntaxKind.VariableDeclarator,
+              id: identifier,
+              init: assignment,
+            },
+          ],
+        }
+
+        delete node.assignment
+        delete node.identifier
+
+        Object.assign(node, babelVariableDeclaration) //?
       }
     },
   },
