@@ -3,7 +3,7 @@ import { ASTNode, CallExpression } from 'ast/ast'
 import { Expression, SyntaxKind } from 'types'
 
 export type Visitor = {
-  [methodName in SyntaxKind]?: {
+  [PropertyKey in SyntaxKind]?: {
     enter?: (payload: { node: ASTNode; parent: ASTNode | null }) => unknown
     exit?: (payload: { node: ASTNode; parent: ASTNode | null }) => unknown
   }

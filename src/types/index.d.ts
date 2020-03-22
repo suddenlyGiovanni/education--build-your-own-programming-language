@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-interface */
 export const enum SyntaxKind {
   Identifier = 'Identifier',
   Literal = 'Literal',
@@ -7,6 +8,8 @@ export const enum SyntaxKind {
   Program = 'Program',
   BlockStatement = 'BlockStatement',
   CallExpression = 'CallExpression',
+  VariableDeclaration = 'VariableDeclaration',
+  VariableDeclarator = 'VariableDeclarator',
 }
 
 export const enum SyntaxToken {
@@ -69,6 +72,10 @@ export const enum SyntaxToken {
   CaretEquals,
 }
 
+export const enum SpecialForms {
+  define = 'define',
+}
+
 /**
  * object consisting of
  * - a `start` position (the position of the first character of the parsed source region) and
@@ -124,29 +131,23 @@ export interface Position {
   column: number // >= 0
 }
 
-/**
- * Any statement.
- */
-export type Statement = Node
+/** Any statement. */
+export interface Statement extends Node {}
 
 /**
  * Any expression node
  */
-export type Expression = Node
+export interface Expression extends Node {}
 
-export type Pattern = Node
+export interface Pattern extends Node {}
 
-/**
- * An identifier. Note that an identifier may be an expression or a destructuring pattern.
- */
+/** An identifier. Note that an identifier may be an expression or a destructuring pattern. */
 export interface Identifier extends Expression, Pattern {
   type: SyntaxKind.Identifier
   name: string
 }
 
-/**
- * A literal token. Note that a literal can be an expression.
- */
+/** A literal token. Note that a literal can be an expression. */
 export interface Literal extends Expression {
   type:
     | SyntaxKind.Literal
@@ -154,6 +155,8 @@ export interface Literal extends Expression {
     | SyntaxKind.StringLiteral
   value: string | boolean | null | number | RegExp
 }
+
+export type Declaration = Statement
 
 /**
  * A directive from the directive prologue of a script or function.
@@ -165,50 +168,38 @@ export interface Directive extends Node {
   directive: string
 }
 
-/**
- * A complete program source tree.
- */
+/** A complete program source tree. */
 
 export interface Program extends Node {
   type: SyntaxKind.Program
   body: (Directive | Statement)[]
 }
 
-/**
- * An expression statement, i.e., a statement consisting of a single expression.
- */
+/** An expression statement, i.e., a statement consisting of a single expression. */
 export interface ExpressionStatement extends Statement {
   type: SyntaxKind.ExpressionStatement
   expression: Expression
 }
 
-/**
- * A block statement, i.e., a sequence of statements surrounded by braces.
- */
+/** A block statement, i.e., a sequence of statements surrounded by braces. */
 export interface BlockStatement extends Statement {
   type: SyntaxKind.BlockStatement
   body: Statement[]
 }
 
-/**
- * The body of a function, which is a block statement that may begin with directives.
- */
+/** The body of a function, which is a block statement that may begin with directives. */
 export interface FunctionBody extends BlockStatement {
   body: (Directive | Statement)[]
 }
 
-/**
- * A function declaration or expression.
- */
+/** A function declaration or expression. */
 export interface Function extends Node {
   id: Identifier | null
   params: Pattern[]
   body: FunctionBody
 }
 
-/**
- * A function or method call expression.
- */
+/** A function or method call expression. */
 export interface CallExpression extends Expression {
   // TODO: Remove null from callee def.
   callee?: Expression | null

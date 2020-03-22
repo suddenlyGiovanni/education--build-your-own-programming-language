@@ -95,6 +95,25 @@ export class CallExpression implements AST.CallExpression {
   }
 }
 
+export class VariableDeclaration implements AST.Expression {
+  public type: AST.SyntaxKind.VariableDeclaration
+  public identifier: AST.Identifier
+
+  public assignment: AST.Literal
+
+  constructor(identifier: AST.Identifier, assignment: AST.Literal) {
+    this.type = AST.SyntaxKind.VariableDeclaration
+    this.identifier = identifier
+    this.assignment = assignment
+  }
+
+  public static isVariableDeclaration(
+    node: ASTNode
+  ): node is VariableDeclaration {
+    return node.type === AST.SyntaxKind.VariableDeclaration
+  }
+}
+
 export type ASTNode =
   | AST.Statement
   | AST.Expression
@@ -110,3 +129,4 @@ export type ASTNode =
   | CallExpression
   | NumericLiteral
   | StringLiteral
+  | VariableDeclaration
