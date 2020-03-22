@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
-import { ASTNode, CallExpression } from 'ast/ast'
+import { ASTNode, CallExpression } from '../ast/ast'
 import { Expression, SyntaxKind } from 'types'
 
 export type Visitor = {

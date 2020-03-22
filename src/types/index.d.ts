@@ -142,9 +142,11 @@ export interface Expression extends Node {}
 export interface Pattern extends Node {}
 
 /** An identifier. Note that an identifier may be an expression or a destructuring pattern. */
-export interface Identifier extends Expression, Pattern {
+export interface Identifier<Name extends string = string>
+  extends Expression,
+    Pattern {
   type: SyntaxKind.Identifier
-  name: string
+  name: Name
 }
 
 /** A literal token. Note that a literal can be an expression. */

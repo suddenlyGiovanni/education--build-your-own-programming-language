@@ -1,4 +1,4 @@
-import { CallExpression, VariableDeclaration, Identifier } from 'ast/ast'
+import { CallExpression, VariableDeclaration, Identifier } from '../ast/ast'
 import { Literal, SpecialForms } from 'types'
 
 function TransformCallExpressionToVariableDeclaration(

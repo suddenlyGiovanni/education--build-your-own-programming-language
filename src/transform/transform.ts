@@ -1,6 +1,6 @@
-import { traverse, Visitor } from 'traverse/traverse'
-import { ASTNode, CallExpression } from 'ast/ast'
-import { specialForms } from 'special-forms/special-forms'
+import { traverse, Visitor } from '../traverse/traverse'
+import { ASTNode, CallExpression } from '../ast/ast'
+import { specialForms } from '../special-forms/special-forms'
 import { SpecialForms } from 'types'
 
 const visitor: Visitor = {

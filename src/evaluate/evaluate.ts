@@ -7,6 +7,7 @@ import {
   CallExpression,
   Identifier,
   ASTNode,
+  VariableDeclaration,
 } from '../ast/ast'
 
 // const last = <T>(collection: T[]): T => collection[collection.length - 1]
@@ -34,7 +35,18 @@ function getIdentifier(node: Identifier) {
 
   throw new ReferenceError(`${node.name} is not defined`)
 }
+
+function define(node: ASTNode): void {
+  if (VariableDeclaration.isVariableDeclaration(node)) {
+    const { identifier, assignment } = node
+    environment[identifier.name] = assignment.value
+  }
+}
 export function evaluate(node: ASTNode) {
+  if (VariableDeclaration.isVariableDeclaration(node)) {
+    return define(node)
+  }
+
   if (CallExpression.isCallExpression(node)) {
     return apply(node)
   }

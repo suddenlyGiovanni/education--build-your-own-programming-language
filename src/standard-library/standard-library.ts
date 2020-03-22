@@ -18,7 +18,7 @@ const divide = all<number>((a, b) => a / b)
 const modulo = all<number>((a, b) => a % b)
 const log = console.log
 
-const environment = {
+export const environment: { [MethodName: string]: any } = {
   add,
   subtract,
   multiply,
@@ -30,5 +30,3 @@ const environment = {
     return Math.max(...args)
   },
 }
-
-export { environment }
